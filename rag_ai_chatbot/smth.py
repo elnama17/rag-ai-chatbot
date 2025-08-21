@@ -15,20 +15,12 @@ AWS_REGION = os.getenv("AWS_REGION")
 AWS_ACCESS_KEY = os.getenv("AWS_ACCESS_KEY_ID")
 AWS_SECRET_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 MODEL_ID = os.getenv("MODEL_ID")
-KNOWLEDGE_BASE_ID = os.getenv("KNOWLEDGE_BASE_ID")  # <-- add this in .env
 
 # ----------------------
-# AWS Bedrock clients
+# AWS Bedrock client
 # ----------------------
 client = boto3.client(
     "bedrock-runtime",
-    region_name=AWS_REGION,
-    aws_access_key_id=AWS_ACCESS_KEY,
-    aws_secret_access_key=AWS_SECRET_KEY,
-)
-
-kb_client = boto3.client(
-    "bedrock-agent-runtime",
     region_name=AWS_REGION,
     aws_access_key_id=AWS_ACCESS_KEY,
     aws_secret_access_key=AWS_SECRET_KEY,
@@ -70,52 +62,13 @@ def stream_llm_answer(prompt: str):
         time.sleep(0.1)  # simulate streaming
 
 # ----------------------
-# Knowledge Base helpers
-# ----------------------
-def retrieve_from_kb(query: str, top_k: int = 3):
-    """
-    Query the knowledge base and return top results
-    """
-    req = {
-        "knowledgeBaseId": KNOWLEDGE_BASE_ID,
-        "retrievalQuery": {"text": query},
-        "retrievalConfiguration": {
-            "vectorSearchConfiguration": {
-                "numberOfResults": top_k
-            }
-        }
-    }
-    response = kb_client.retrieve(**req)
-    candidates = response.get("retrievalResults", [])
-    docs = [
-        f"Document {i+1}: {doc['content']['text']}"
-        for i, doc in enumerate(candidates)
-        if "content" in doc and "text" in doc["content"]
-    ]
-    return "\n\n".join(docs)
-
-def generate_rag_answer(user_query: str):
-    """
-    Combine KB retrieval with LLM generation
-    """
-    kb_context = retrieve_from_kb(user_query)
-    prompt = f"""
-### Knowledge Base:
-{kb_context}
-
-### User Query:
-{user_query}
-"""
-    return generate_llm_answer(prompt)
-
-# ----------------------
 # FastAPI app
 # ----------------------
 app = FastAPI(title="RAG AI Backend")
 
 @app.get("/")
 def root():
-    return {"message": "Backend running! Use /api/chat-llm, /api/chat-llm-stream or /api/chat-rag"}
+    return {"message": "Backend running! Use /api/chat-llm or /api/chat-llm-stream"}
 
 @app.get("/api/chat-llm")
 def chat_llm(query: str = Query(...)):
@@ -129,16 +82,5 @@ def chat_llm(query: str = Query(...)):
 def chat_llm_stream(query: str = Query(...)):
     try:
         return StreamingResponse(stream_llm_answer(query), media_type="text/plain")
-    except Exception as e:
-        return PlainTextResponse(f"Error: {str(e)}")
-
-@app.get("/api/chat-rag")
-def chat_rag(query: str = Query(...)):
-    """
-    Retrieval-Augmented Generation endpoint
-    """
-    try:
-        answer = generate_rag_answer(query)
-        return PlainTextResponse(answer)
     except Exception as e:
         return PlainTextResponse(f"Error: {str(e)}")
