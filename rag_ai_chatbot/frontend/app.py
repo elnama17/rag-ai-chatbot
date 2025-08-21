@@ -20,12 +20,14 @@ with st.sidebar:
         st.session_state["messages"] = []
         st.experimental_rerun()
     st.markdown("---")
-    st.markdown(
-        "This chatbot uses RAG + Amazon Bedrock LLM.\n\n"
-        "**Tips:**\n- Ask specific questions.\n- Use short queries for faster responses.\n- Streaming shows answers in real-time."
-    )
+    st.markdown("""
+### 🌟 Meet Vallie, your friendly AI assistant! 🤖
+
+Hi there! I'm **Vallie**, and I'm here to help you find answers, share insights, and make learning fun and easy!\n
+You can use the **RAG option** to fetch info about the policies of the Azercell Telecom LLC! 💡✨
+""")
     # Add checkbox to toggle RAG
-    use_rag = st.checkbox("Use Knowledge Base (RAG)", value=True)
+    use_rag = st.checkbox("RAG (Use Knowledge Base)", value=True)
 
 # --- Display chat history ---
 for msg in st.session_state["messages"]:
