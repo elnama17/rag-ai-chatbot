@@ -42,7 +42,7 @@ if prompt := st.chat_input("Type your message..."):
     st.chat_message("user").markdown(f"💬 {prompt}")
 
     # Choose endpoint based on checkbox
-    endpoint = "/api/chat-rag" if use_rag else "/api/chat-llm-stream"
+    endpoint = "/api/chat-rag" if use_rag else "/api/chat-llm-vallie"
 
     try:
         # Streaming response from backend

@@ -35,13 +35,21 @@ kb_client = boto3.client(
 )
 
 # ----------------------
+# Vallie personality
+# ----------------------
+VALLIE_SYSTEM_PROMPT = """
+You are Vallie, a friendly and conversational AI assistant.
+Be helpful, polite, and engaging in your responses.
+"""
+
+# ----------------------
 # Helper functions
 # ----------------------
-def create_body_json(prompt: str):
+def create_body_json(prompt: str, system: str = ""):
     return json.dumps({
         "anthropic_version": "bedrock-2023-05-31",
         "max_tokens": 10240,
-        "system": "",
+        "system": system,
         "messages": [{"role": "user", "content": prompt}]
     })
 
@@ -50,6 +58,20 @@ def generate_llm_answer(prompt: str):
     Normal LLM call: returns full text
     """
     body_json = create_body_json(prompt)
+    response = client.invoke_model(
+        modelId=MODEL_ID,
+        contentType="application/json",
+        accept="application/json",
+        body=body_json
+    )
+    message = json.loads(response['body'].read().decode('utf-8'))
+    return message['content'][0]['text']
+
+def generate_vallie_answer(prompt: str):
+    """
+    Vallie - Friendly AI assistant
+    """
+    body_json = create_body_json(prompt, system=VALLIE_SYSTEM_PROMPT)
     response = client.invoke_model(
         modelId=MODEL_ID,
         contentType="application/json",
@@ -115,7 +137,7 @@ app = FastAPI(title="RAG AI Backend")
 
 @app.get("/")
 def root():
-    return {"message": "Backend running! Use /api/chat-llm, /api/chat-llm-stream or /api/chat-rag"}
+    return {"message": "Backend running! Use /api/chat-llm, /api/chat-llm-stream, /api/chat-rag, or /api/chat-llm-vallie"}
 
 @app.get("/api/chat-llm")
 def chat_llm(query: str = Query(...)):
@@ -139,6 +161,17 @@ def chat_rag(query: str = Query(...)):
     """
     try:
         answer = generate_rag_answer(query)
+        return PlainTextResponse(answer)
+    except Exception as e:
+        return PlainTextResponse(f"Error: {str(e)}")
+
+@app.get("/api/chat-llm-vallie")
+def chat_llm_vallie(query: str = Query(...)):
+    """
+    Vallie - Friendly AI assistant
+    """
+    try:
+        answer = generate_vallie_answer(query)
         return PlainTextResponse(answer)
     except Exception as e:
         return PlainTextResponse(f"Error: {str(e)}")

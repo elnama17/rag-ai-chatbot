@@ -15,8 +15,7 @@ Vallie is a friendly AI assistant powered by Amazon Bedrock LLM and optionally e
 - Conversational AI with a friendly personality (**Vallie**).  
 - Real-time **streaming responses** from the backend.  
 - Optional **RAG functionality** to retrieve information from a knowledge base.  
-- Dockerized **frontend (Streamlit)** and **backend (FastAPI)** services.  
-- Interactive UI with **chat history** and **clear chat** option.  
+- Dockerized **frontend (Streamlit)** and **backend (FastAPI)** services.
 
 ## project structure
 ```
@@ -49,8 +48,9 @@ rag_ai_chatbot/
 |   ├── uv.lock
 │   └── .python-version
 ├─ .gitignore
-├─ docker-compose.yml
-└─ README.md
+├─ LICENSE
+├─ README.md
+└─ docker-compose.yml
 
 --------
 ```
