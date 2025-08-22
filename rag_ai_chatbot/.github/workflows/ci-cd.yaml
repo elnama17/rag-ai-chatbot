@@ -1,0 +1,45 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # or your deployment branch.
+
+jobs:
+  lint:
+    name: Ruff Lint Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: Install Ruff
+        run: pip install ruff
+
+      - name: Run Ruff on backend
+        run: ruff check ./backend
+
+      - name: Run Ruff on frontend
+        run: ruff check ./frontend
+
+  deploy:
+    name: Build & Deploy on EC2
+    runs-on: self-hosted  # runs on your EC2
+
+    needs: lint  # only runs if lint passes
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Build Docker images
+        run: docker-compose build
+
+      - name: Deploy containers
+        run: docker-compose up -d
