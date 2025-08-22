@@ -17,10 +17,10 @@ Vallie is a friendly AI assistant powered by Amazon Bedrock LLM and optionally e
 - Optional **RAG functionality** to retrieve information from a knowledge base.  
 - Dockerized **frontend (Streamlit)** and **backend (FastAPI)** services.
 
-## Query without RAG
+### Query without RAG:
 ![ALt text](image.png)
 
-## Query with RAG
+### Query with RAG:
 
 ![ALt text](image-1.png)
 
@@ -76,40 +76,64 @@ Before running the project, make sure you have the following installed:
 
 - Docker
 
-## 🚀 Setup & Installation
+## 🚀 Running the Project
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/elnama17/rag-ai-chatbot.git
-cd rag-ai-chatbot\rag_ai_chatbot
+### ✅ Run Locally
+
+1. Clone the repository
+
 ```
-### 2. Create a .env file in the project root directory with your AWS Bedrock credentials:
-```bash
-AWS_REGION=us-east-1
+git clone https://github.com/elnama17/rag-ai-chatbot.git
+cd <rag-ai-chatbot>
+```
+
+
+2. Create and configure .env file
+Fill in the required environment variables (e.g., API keys, database credentials):
+```AWS_REGION=us-east-1
 AWS_ACCESS_KEY_ID=your_access_key
 AWS_SECRET_ACCESS_KEY=your_secret_key
 KNOWLEDGE_BASE_ID=your_knowledge_base_id
 ```
-### 3. Run with
-``` bash
- docker-compose up --build
- ```
 
-### 4. Access the chatbot:
+3. Start with Docker Compose
+```
+docker-compose up --build
+```
+
+4. Open your browser and go to:
+```
+http://localhost:3000   # frontend
+http://localhost:8000   # backend API
+```
+### 🌍 Run on AWS EC2
+
+1. Launch an EC2 instance
+
+2. Choose Ubuntu 22.04 or Amazon Linux.
+
+3. Open security groups for ports 22 (SSH), 80 (HTTP), and any others your app needs.
+
+4. Install Docker & Docker Compose
+```
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y docker.io docker-compose
+sudo usermod -aG docker ubuntu
+```
+
+5. Clone your repository
+```
+git clone https://github.com/elnama17/rag-ai-chatbot.git
+cd <rag-ai-chatbot>
+```
+
+6. Run with Docker Compose
+
+docker-compose up --build -d
+
+
+7. Access your app
+In your browser, go to:
 ```bash
-Backend API: http://localhost:8000
-
-Frontend: http://localhost:8501
-```
-## Docker Notes
-
-- Each service runs in its own container.
-
-- Logs can be checked with:
-```bash
-docker-compose logs backend
-```
-- To stop:
-```
-docker-compose down
+http://<EC2-PUBLIC-IP>
 ```
