@@ -11,6 +11,12 @@
 
 Vallie is a friendly AI assistant powered by Amazon Bedrock LLM and optionally enhanced with RAG (Retrieval-Augmented Generation). Vallie can answer questions, provide insights, and fetch specific company knowledge when RAG is enabled.
 
+### the URL to the frontend:
+```
+http://34.232.190.245:8501/
+
+```
+
 ### ✨ Features
 - Conversational AI with a friendly personality (**Vallie**).  
 - Real-time **streaming responses** from the backend.  
