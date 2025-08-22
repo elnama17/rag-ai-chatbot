@@ -3,12 +3,11 @@ name: CI Build
 on:
   push:
     branches:
-      - main
       - dev
   pull_request:
     branches:
-      - main
-  workflow_dispatch:
+      - dev
+  workflow_dispatch:   # allows manual trigger from Actions tab.
 
 jobs:
   lint:
@@ -23,4 +22,4 @@ jobs:
           enable-cache: true
 
       - name: Ruff check
-        run: uvx ruff backend frontend . --format github
+        run: uvx ruff check --output-format=github .
