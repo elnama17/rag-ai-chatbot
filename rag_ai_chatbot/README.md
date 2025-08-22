@@ -28,7 +28,8 @@ rag_ai_chatbot/
 │
 ├── backend/
 │   ├── assets/
-│   │   ├── backend_endpoint.png
+│   │   ├── endpoints.png
+|   |   ├── logs.png
 │   │   └── backend_logs.png
 │   ├── app.py
 │   ├── Dockerfile
@@ -39,7 +40,7 @@ rag_ai_chatbot/
 │
 ├── frontend/
 │   ├── assets/
-│   │   ├── llm_answer.png
+│   │   ├── vallie_llm_answer.png
 │   │   └── rag_version.png
 │   ├── app.py
 │   ├── Dockerfile
