@@ -32,7 +32,7 @@ jobs:
     name: Build & Deploy on EC2
     runs-on: self-hosted  # runs on your EC2
 
-    needs: lint  # only runs if lint passes
+    needs: lint  # only runs if lint passes.
 
     steps:
       - name: Checkout repo
