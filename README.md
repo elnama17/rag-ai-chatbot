@@ -18,11 +18,11 @@ Vallie is a friendly AI assistant powered by Amazon Bedrock LLM and optionally e
 - Dockerized **frontend (Streamlit)** and **backend (FastAPI)** services.
 
 ### Query without RAG:
-![ALt text](image.png)
+![ALt text](/frontend/assets/vallie2.png)
 
 ### Query with RAG:
 
-![ALt text](image-1.png)
+![ALt text](/frontend/assets/rag2.png)
 
 
 ## project structure
@@ -80,7 +80,7 @@ Before running the project, make sure you have the following installed:
 
 ### ✅ Run Locally
 
-1. Clone the repository
+1. Clone the repository:
 
 ```
 git clone https://github.com/elnama17/rag-ai-chatbot.git
@@ -96,7 +96,7 @@ AWS_SECRET_ACCESS_KEY=your_secret_key
 KNOWLEDGE_BASE_ID=your_knowledge_base_id
 ```
 
-3. Start with Docker Compose
+3. Start with Docker Compose:
 ```
 docker-compose up --build
 ```
@@ -108,28 +108,29 @@ http://localhost:8000   # backend API
 ```
 ### 🌍 Run on AWS EC2
 
-1. Launch an EC2 instance
+1. Launch an EC2 instance.
 
 2. Choose Ubuntu 22.04 or Amazon Linux.
 
 3. Open security groups for ports 22 (SSH), 80 (HTTP), and any others your app needs.
 
-4. Install Docker & Docker Compose
+4. Install Docker & Docker Compose:
 ```
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y docker.io docker-compose
 sudo usermod -aG docker ubuntu
 ```
 
-5. Clone your repository
+5. Clone your repository:
 ```
 git clone https://github.com/elnama17/rag-ai-chatbot.git
 cd <rag-ai-chatbot>
 ```
 
-6. Run with Docker Compose
-
+6. Run with Docker Compose:
+```
 docker-compose up --build -d
+```
 
 
 7. Access your app
