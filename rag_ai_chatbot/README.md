@@ -81,23 +81,26 @@ AWS_ACCESS_KEY_ID=your_access_key
 AWS_SECRET_ACCESS_KEY=your_secret_key
 KNOWLEDGE_BASE_ID=your_knowledge_base_id
 ```
-### 3. Run with docker-compose up --build
+### 3. Run with
+``` bash
+ docker-compose up --build
+ ```
 
-### 4. Access the chatbot: 4. Access the Chatbot
+### 4. Access the chatbot:
 ```bash
 Backend API: http://localhost:8000
 
-If frontend is implemented: http://localhost:8501
+Frontend: http://localhost:8501
 ```
 ## Docker Notes
 
-Each service runs in its own container.
+- Each service runs in its own container.
 
-Logs can be checked with:
+- Logs can be checked with:
 ```bash
 docker-compose logs backend
 ```
-To stop:
+- To stop:
 ```
 docker-compose down
 ```
