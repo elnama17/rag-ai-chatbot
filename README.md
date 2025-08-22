@@ -18,11 +18,11 @@ Vallie is a friendly AI assistant powered by Amazon Bedrock LLM and optionally e
 - Dockerized **frontend (Streamlit)** and **backend (FastAPI)** services.
 
 ### Query without RAG:
-![ALt text](/frontend/assets/vallie2.png)
+![ALt text](/frontend/assets/vallie_query.png)
 
 ### Query with RAG:
 
-![ALt text](/frontend/assets/rag2.png)
+![ALt text](/frontend/assets/rag.png)
 
 
 ## project structure
@@ -48,8 +48,9 @@ rag-ai-chatbot/
 │
 ├── frontend/
 │   ├── assets/
-│   │   ├── vallie_llm_answer.png
-│   │   └── rag_version.png
+│   │   ├── rag.png
+|   |   ├── vallie_introduction.png
+│   │   └── vallie_query.png
 │   ├── app.py
 │   ├── Dockerfile
 │   ├── pyproject.toml
