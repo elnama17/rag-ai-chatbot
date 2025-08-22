@@ -54,9 +54,7 @@ def create_body_json(prompt: str, system: str = ""):
     })
 
 def generate_llm_answer(prompt: str):
-    """
-    Normal LLM call: returns full text
-    """
+    """Normal LLM call: returns full text"""
     body_json = create_body_json(prompt)
     response = client.invoke_model(
         modelId=MODEL_ID,
@@ -68,9 +66,7 @@ def generate_llm_answer(prompt: str):
     return message['content'][0]['text']
 
 def generate_vallie_answer(prompt: str):
-    """
-    Vallie - Friendly AI assistant
-    """
+    """Vallie - Friendly AI assistant"""
     body_json = create_body_json(prompt, system=VALLIE_SYSTEM_PROMPT)
     response = client.invoke_model(
         modelId=MODEL_ID,
@@ -82,22 +78,26 @@ def generate_vallie_answer(prompt: str):
     return message['content'][0]['text']
 
 def stream_llm_answer(prompt: str):
-    """
-    Streaming generator: yields chunks
-    """
-    full_text = generate_llm_answer(prompt)  # Get full text from LLM
-    chunk_size = 30  # characters per chunk
+    """Streaming generator: yields chunks"""
+    full_text = generate_llm_answer(prompt)
+    chunk_size = 30
     for i in range(0, len(full_text), chunk_size):
         yield full_text[i:i+chunk_size]
-        time.sleep(0.1)  # simulate streaming
+        time.sleep(0.1)
+
+def stream_vallie_answer(prompt: str):
+    """Streaming generator: yields chunks"""
+    full_text = generate_vallie_answer(prompt)
+    chunk_size = 30
+    for i in range(0, len(full_text), chunk_size):
+        yield full_text[i:i+chunk_size]
+        time.sleep(0.1)
 
 # ----------------------
 # Knowledge Base helpers
 # ----------------------
 def retrieve_from_kb(query: str, top_k: int = 3):
-    """
-    Query the knowledge base and return top results
-    """
+    """Query the knowledge base and return top results"""
     req = {
         "knowledgeBaseId": KNOWLEDGE_BASE_ID,
         "retrievalQuery": {"text": query},
@@ -117,9 +117,7 @@ def retrieve_from_kb(query: str, top_k: int = 3):
     return "\n\n".join(docs)
 
 def generate_rag_answer(user_query: str):
-    """
-    Combine KB retrieval with LLM generation
-    """
+    """Combine KB retrieval with LLM generation"""
     kb_context = retrieve_from_kb(user_query)
     prompt = f"""
 ### Knowledge Base:
@@ -156,9 +154,6 @@ def chat_llm_stream(query: str = Query(...)):
 
 @app.get("/api/chat-rag")
 def chat_rag(query: str = Query(...)):
-    """
-    Retrieval-Augmented Generation endpoint
-    """
     try:
         answer = generate_rag_answer(query)
         return PlainTextResponse(answer)
@@ -167,11 +162,8 @@ def chat_rag(query: str = Query(...)):
 
 @app.get("/api/chat-llm-vallie")
 def chat_llm_vallie(query: str = Query(...)):
-    """
-    Vallie - Friendly AI assistant
-    """
+    """Vallie - Friendly AI assistant streaming"""
     try:
-        answer = generate_vallie_answer(query)
-        return PlainTextResponse(answer)
+        return StreamingResponse(stream_vallie_answer(query), media_type="text/plain")
     except Exception as e:
         return PlainTextResponse(f"Error: {str(e)}")
