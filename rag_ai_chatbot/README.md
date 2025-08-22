@@ -1,4 +1,4 @@
-# RAG-ai-chatbot
+# RAG-based AI Chatbot
 
 ![Build Status](https://github.com/elnama17/rag_ai_chatbot/actions/workflows/ci-build.yaml/badge.svg)
 
@@ -7,85 +7,101 @@
 
 ---
 
-Reproducible ML project scaffold powered by uv
+## 🤖 Vallie: Friendly RAG-based AI Chatbot
 
-## Structure
+Vallie is a friendly AI assistant powered by Amazon Bedrock LLM and optionally enhanced with RAG (Retrieval-Augmented Generation). Vallie can answer questions, provide insights, and fetch specific company knowledge when RAG is enabled.
+
+### ✨ Features
+- Conversational AI with a friendly personality (**Vallie**).  
+- Real-time **streaming responses** from the backend.  
+- Optional **RAG functionality** to retrieve information from a knowledge base.  
+- Dockerized **frontend (Streamlit)** and **backend (FastAPI)** services.
+
+## project structure
+```
 ------------
-
-    ├── LICENSE
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── uv.lock   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `uv lock > uv.lock`
-    │
-    ├── pyptoject.toml    <- makes project uv installable (uv installs) so src can be imported
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-
+rag_ai_chatbot/
+│
+├── .github/
+│   └── workflows/
+│       └── ci-build.yaml
+│
+├── backend/
+│   ├── assets/
+│   │   ├── endpoints.png
+|   |   ├── logs.png
+│   │   └── backend_logs.png
+│   ├── app.py
+│   ├── Dockerfile
+│   ├── pyproject.toml
+│   ├── requirements.txt
+│   ├── .python-version
+|   └── uv.lock
+│
+├── frontend/
+│   ├── assets/
+│   │   ├── vallie_llm_answer.png
+│   │   └── rag_version.png
+│   ├── app.py
+│   ├── Dockerfile
+│   ├── pyproject.toml
+│   ├── requirements.txt
+|   ├── uv.lock
+│   └── .python-version
+├─ .gitignore
+├─ LICENSE
+├─ README.md
+└─ docker-compose.yml
 
 --------
-
-
-## Getting started (uv)
-```bash
-# create venv and sync (will create uv.lock)
-uv sync
-
-# add a runtime dependency
-uv add numpy
-
-# run code
-uv run python -m src.models.train_model
 ```
 
-## Code quality (ruff, isort, black via uvx)
-### Run tools in ephemeral envs — no dev dependencies added to your project.
+---
 
-#### Lint (no changes)
+## ⚙️ Requirements
+
+Before running the project, make sure you have the following installed:
+
+- Python 3.9+
+
+- uv (for dependency management and running the app)
+
+- Docker
+
+## 🚀 Setup & Installation
+
+### 1. Clone the Repository
 ```bash
-# Lint entire repo
-uvx ruff check .
+git clone https://github.com/elnama17/rag-ai-chatbot.git
+cd rag-ai-chatbot\rag_ai_chatbot
 ```
-
-#### Auto-fix
+### 2. Create a .env file in the project root directory with your AWS Bedrock credentials:
 ```bash
-# 1) Sort imports
-uvx isort .
-
-# 2) Format code
-uvx black .
-
-# 3) Apply Ruff’s safe fixes (entire repo)
-uvx ruff check --fix .
+AWS_REGION=us-east-1
+AWS_ACCESS_KEY_ID=your_access_key
+AWS_SECRET_ACCESS_KEY=your_secret_key
+KNOWLEDGE_BASE_ID=your_knowledge_base_id
 ```
-> Also remove unused imports/variables:
-> ```bash
-> uvx ruff check --fix --unsafe-fixes .
-> ```
+### 3. Run with
+``` bash
+ docker-compose up --build
+ ```
+
+### 4. Access the chatbot:
+```bash
+Backend API: http://localhost:8000
+
+Frontend: http://localhost:8501
+```
+## Docker Notes
+
+- Each service runs in its own container.
+
+- Logs can be checked with:
+```bash
+docker-compose logs backend
+```
+- To stop:
+```
+docker-compose down
+```
