@@ -1,6 +1,6 @@
 # RAG-based AI Chatbot
 
-![Build Status](https://github.com/elnama17/rag_ai_chatbot/actions/workflows/ci-build.yaml/badge.svg)
+[![CI Build](https://github.com/elnama17/rag-ai-chatbot/actions/workflows/ci-build.yaml/badge.svg)](https://github.com/elnama17/rag-ai-chatbot/actions/workflows/ci-build.yaml)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![3.12](https://img.shields.io/badge/Python-3.12-green.svg)](https://shields.io/)
@@ -20,7 +20,7 @@ Vallie is a friendly AI assistant powered by Amazon Bedrock LLM and optionally e
 ## project structure
 ```
 ------------
-rag_ai_chatbot/
+rag-ai-chatbot/
 │
 ├── .github/
 │   └── workflows/
