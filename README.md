@@ -17,9 +17,12 @@ Vallie is a friendly AI assistant powered by Amazon Bedrock LLM and optionally e
 - Optional **RAG functionality** to retrieve information from a knowledge base.  
 - Dockerized **frontend (Streamlit)** and **backend (FastAPI)** services.
 
-![ALt text](image.png "Query without RAG")
+## Query without RAG
+![ALt text](image.png)
 
-![ALt text](image-1.png "Query with RAG")
+## Query with RAG
+
+![ALt text](image-1.png)
 
 
 ## project structure
