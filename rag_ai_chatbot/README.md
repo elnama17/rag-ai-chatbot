@@ -1,4 +1,4 @@
-# RAG-ai-chatbot
+# RAG-based AI Chatbot
 
 ![Build Status](https://github.com/elnama17/rag_ai_chatbot/actions/workflows/ci-build.yaml/badge.svg)
 
@@ -7,7 +7,7 @@
 
 ---
 
-## 🤖 Vallie: Friendly RAG based AI Chatbot
+## 🤖 Vallie: Friendly RAG-based AI Chatbot
 
 Vallie is a friendly AI assistant powered by Amazon Bedrock LLM and optionally enhanced with RAG (Retrieval-Augmented Generation). Vallie can answer questions, provide insights, and fetch specific company knowledge when RAG is enabled.
 
@@ -61,11 +61,11 @@ rag_ai_chatbot/
 
 Before running the project, make sure you have the following installed:
 
-Python 3.9+
+- Python 3.9+
 
-uv (for dependency management and running the app)
+- uv (for dependency management and running the app)
 
-Docker
+- Docker
 
 ## 🚀 Setup & Installation
 
